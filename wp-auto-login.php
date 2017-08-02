@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Auto Login
  * Description: Enables one click login from the Feather Stack admin.
- * Version: 1.0.1
+ * Version: 1.0.2
  */
 
 /**
@@ -40,8 +40,8 @@ function al_init() {
 	if (!isset($_REQUEST["loginkey"]))
 		return;
 
-	$authenticationUrl=get_option("al_authentication_url");
-	if (!$authenticationUrl)
+	$url=get_option("al_authentication_url");
+	if (!$url)
 		return;
 
 	try {
@@ -49,7 +49,7 @@ function al_init() {
 		curl_setopt($curl,CURLOPT_RETURNTRANSFER,1);	
 
 		foreach ($_REQUEST as $k=>$v)
-			$url=add_query_arg($k,$v,$authenticationUrl);
+			$url=add_query_arg($k,$v,$url);
 
 		curl_setopt($curl,CURLOPT_URL,$url);
 		$res=curl_exec($curl);
